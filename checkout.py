@@ -10,6 +10,7 @@
 import csv
 import sys
 import datetime
+import os
 
 class Inventory:
     def __init__(self, dictionaryofthings):
@@ -17,25 +18,30 @@ class Inventory:
 
     def showInventory(self):
         print("Here are the items we currently have:")
-        print(" =============================== ")
+        print(" ======= Current Inventory ======= ")
         for item, count in self.dictionaryofthings.items():
             print("{:>22}: {} ".format(item, count))
+        print("")
 
     def lendItem(self, requesteditem):
         requesteditemcount = self.dictionaryofthings.get(requesteditem) # Just to make things more readable
         if requesteditemcount > 0:
             self.dictionaryofthings.update({requesteditem: requesteditemcount-1})
             print("The item you requested has now been borrowed.")
-            print("Please let the front desk staff know. Thank you!")
+            print("Please let the front desk staff know. Thank you!\n")
 
     def readdItem(self, requesteditem):
         requesteditemcount = self.dictionaryofthings.get(requesteditem)
         self.dictionaryofthings.update({requesteditem: requesteditemcount+1})
-        print("Thank you for returning this item. Have a great day!")
+        print("Thank you for returning this item. Have a great day!\n")
+
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
 
 def loadcsvOntoDict(filename):
     loadeddict = {}
-    with open(filename, "r") as csvfile:
+    with open(os.path.join(__location__, filename), "r") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             loadeddict.update({row['items']: int(row['count'])})
@@ -49,7 +55,7 @@ def infoPrompt():
     return str(name), str(uid), str(item)
 
 def appendToLog(filename, name, uid, requesteditem, time, status):
-    with open(filename, "a", newline = "") as log:
+    with open(os.path.join(__location__, filename), "a", newline = "") as log:
         logwriter = csv.writer(log)
         logwriter.writerow([name, uid, requesteditem, time, status])
         log.close()
