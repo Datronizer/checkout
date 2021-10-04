@@ -38,30 +38,56 @@ class Inventory:
 __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
+class Operations:
+    def __init__(self):
+        pass
 
-def loadcsvOntoDict(filename):
-    loadeddict = {}
-    with open(os.path.join(__location__, filename), "r") as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            loadeddict.update({row['items']: int(row['count'])})
-        csvfile.close()
-    return loadeddict
+    def loadcsvOntoDict(self, filename):
+        self.filename = filename
+        loadeddict = {}
+        with open(os.path.join(__location__, self.filename), "r") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                loadeddict.update({row['items']: int(row['count'])})
+            csvfile.close()
+        return loadeddict
 
-def infoPrompt():
-    name = input("Please enter your name: ")
-    uid = input("Please enter your USF ID: ")
-    item = input("Enter the name of the item (case-sensitive): ")
-    return str(name), str(uid), str(item)
+    def infoPrompt(self):
+        self.name = input("Please enter your name: ")
+        self.uid = input("Please enter your USF ID: ")
+        self.item = input("Enter the name of the item (case-sensitive): ")
+        return str(self.name), str(self.uid), str(self.item)
 
-def appendToLog(filename, name, uid, requesteditem, time, status):
-    with open(os.path.join(__location__, filename), "a", newline = "") as log:
-        logwriter = csv.writer(log)
-        logwriter.writerow([name, uid, requesteditem, time, status])
-        log.close()
+    def appendToLog(self, filename, name, uid, requesteditem, time, status):
+        with open(os.path.join(__location__, filename), "a", newline = "") as log:
+            logwriter = csv.writer(log)
+            logwriter.writerow([name, uid, requesteditem, time, status])
+            log.close()
+
+# def loadcsvOntoDict(filename):
+#     loadeddict = {}
+#     with open(os.path.join(__location__, filename), "r") as csvfile:
+#         reader = csv.DictReader(csvfile)
+#         for row in reader:
+#             loadeddict.update({row['items']: int(row['count'])})
+#         csvfile.close()
+#     return loadeddict
+#
+# def infoPrompt():
+#     name = input("Please enter your name: ")
+#     uid = input("Please enter your USF ID: ")
+#     item = input("Enter the name of the item (case-sensitive): ")
+#     return str(name), str(uid), str(item)
+#
+# def appendToLog(filename, name, uid, requesteditem, time, status):
+#     with open(os.path.join(__location__, filename), "a", newline = "") as log:
+#         logwriter = csv.writer(log)
+#         logwriter.writerow([name, uid, requesteditem, time, status])
+#         log.close()
 
 def main():
-    loadeddict = loadcsvOntoDict("SGCS_inventory.csv")
+    do = Operations()
+    loadeddict = do.loadcsvOntoDict("SGCS_inventory.csv")
     inventory = Inventory(loadeddict)
 
     sessiondone = False
@@ -77,14 +103,14 @@ def main():
             inventory.showInventory()
 
         if choice == 2:
-            prompt = infoPrompt()
+            prompt = do.infoPrompt()
             inventory.lendItem(prompt[2])
-            appendToLog("checkout_log.csv", prompt[0], prompt[1], prompt[2], datetime.datetime.now(), "Borrow")
+            do.appendToLog("checkout_log.csv", prompt[0], prompt[1], prompt[2], datetime.datetime.now(), "Borrow")
 
         if choice == 3:
-            prompt = infoPrompt()
+            prompt = do.infoPrompt()
             inventory.readdItem(prompt[2])
-            appendToLog("checkout_log.csv", prompt[0], prompt[1], prompt[2], datetime.datetime.now(), "Return")
+            do.appendToLog("checkout_log.csv", prompt[0], prompt[1], prompt[2], datetime.datetime.now(), "Return")
 
         if choice == 4:
             print("Thank you for using our service!")
