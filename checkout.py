@@ -6,7 +6,7 @@
 # Update 0.0: File created. Simple checkin/checkout system seems to work.
 # Update 0.1: Have a log system that tracks when someone checks in and out
 # Update 0.2: Make the Inventory class directly change the inventory count so that it is consistent even after the code exits
-# Update 0.3:
+# Update 0.3: Made the interface more readable with clearTerminal() and integrated a login loop
 
 import csv, datetime, getpass, os, sys, time
 #
@@ -110,13 +110,13 @@ def login():
 
     user_name = input('Full name: ')
     while user_name.strip() == '':
-        print('Name cannot be empty, try again.')
+        print('Name cannot be empty. Try again.')
         user_name = input('Full name: ')
 
-    user_email = input('USF email: ') # takes input and process it
+    user_email = input('USF email: ').strip() # takes input and process it
     substring = '@usf.edu'
-    while substring not in user_email:
-        print('Invalid format. Your email must end with @usf.edu.')
+    while substring not in user_email or user_email == '':
+        print('Invalid format. Try again.')
         user_email = input('USF email: ')
 
     card_swipe = getpass.getpass(prompt='Please swipe your USF ID: ')

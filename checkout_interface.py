@@ -23,4 +23,4 @@ class Interface(tk.Frame):
 
 root = tk.Tk()
 app = Interface(master = root)
-app.mainloop()
+app.mainloop()``
