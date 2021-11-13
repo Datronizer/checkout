@@ -1,2 +1,4 @@
 
 checkout_log.csv
+*.py
+auth.py

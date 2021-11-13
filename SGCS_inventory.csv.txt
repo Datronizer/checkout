@@ -1,4 +1,4 @@
 item	count
 headphones	6
 usb-c cables	4
-wireless chargers	7
+wireless chargers	 

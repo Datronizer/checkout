@@ -9,8 +9,8 @@ from google.oauth2.credentials import Credentials
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
 # The ID and range of a sample spreadsheet.
-SAMPLE_SPREADSHEET_ID = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
-SAMPLE_RANGE_NAME = 'Class Data!A2:E'
+SAMPLE_SPREADSHEET_ID = '160rSISDyl9VUpFsW0kic3Zy5AxjKJycfKORZSF5Ov5o'
+SAMPLE_RANGE_NAME = 'Sheet1!B1:B4'
 
 def main():
     """Shows basic usage of the Sheets API.

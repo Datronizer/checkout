@@ -7,9 +7,13 @@
 # Update 0.1: Have a log system that tracks when someone checks in and out
 # Update 0.2: Make the Inventory class directly change the inventory count so that it is consistent even after the code exits
 # Update 0.3: Made the interface more readable with clearTerminal() and integrated a login loop
+# Update 0.4: Attempting to integrate Google Sheets starting with GET calls
 
+from __future__ import print_function
+from auth import spreadsheet_service
+from auth import drive_service
 import csv, datetime, getpass, os, sys, time
-#
+
 # class Inventory:
 #     def __init__(self, dictionaryofthings):
 #         self.dictionaryofthings = dictionaryofthings
@@ -84,6 +88,13 @@ import csv, datetime, getpass, os, sys, time
 # #         logwriter.writerow([name, uid, requesteditem, time, status])
 # #         log.close()
 #
+
+spreadsheetId = '160rSISDyl9VUpFsW0kic3Zy5AxjKJycfKORZSF5Ov5o'
+inventory_range = 'inventory!A1:B4'
+
+def readSheets():
+
+
 def clearTerminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
