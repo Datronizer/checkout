@@ -2,3 +2,5 @@
 checkout_log.csv
 *.py
 auth.py
+credentials.json
+credentials.json
